@@ -24,6 +24,8 @@ from pdfapp import views
 urlpatterns = [
     path('', views.Home.as_view(), name='home'),
     path('pdf/', views.pdf_list, name='pdf_list'),
+    path('upload/', views.upload, name='upload'),
+    path('pdf/upload/', views.upload_pdf, name='upload_pdf'),
     path('pdf/upload/', views.upload_pdf, name='upload_pdf'),
     path('pdf/<int:pk>/', views.delete_pdf, name='delete_pdf'),
     path('admin/', admin.site.urls),
