@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  {% block content_header %}
+    <h2>Pdfs</h2>
+    <p>
+      <a href="{% url 'upload_pdf' %}" class="btn btn-info">Upload pdf</a>
+    </p>
+  {% endblock %}
+
+  <table class="table mb-0">
+    <thead>
+      <tr>
+        <th>Cover</th>
+        <th>Title</th>
+        <th>Download</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pdf in pdf %}
+        <tr>
+          <td>
+            {% if pdf.cover %}
+              <img src="{{ pdf.cover.url }}" alt="{{ pdf.title }}" style="width:100px;">
+            {% else %}
+              <span class="text-muted">No cover</span>
+            {% endif %}
+          </td>
+          <td>{{ pdf.title }}</td>
+          <td>
+            <a href="{{ pdf.pdf.url }}" class="btn btn-success btn-sm" target="_blank">
+              Download PDF
+            </a>
+          </td>
+          <td>
+            <form method="post" action="{% url 'delete_pdf' pdf.pk %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
